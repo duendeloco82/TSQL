@@ -5,7 +5,7 @@ CREATE FUNCTION [dbo].[fn_Capitalize]
 RETURNS NVARCHAR (255)
 AS
 BEGIN
-	SET @Palabra = LTRIM(RTRIM(@Palabra))
+	SET @Palabra = REPLACE(LTRIM(RTRIM(@Palabra)),'  ',' ')
 	DECLARE @PalabraOriginal AS NVARCHAR(255) = @Palabra
 	DECLARE @Espacios AS INT = (LEN(@Palabra)-LEN(REPLACE(@Palabra,' ','')))+1
 
