@@ -5,7 +5,11 @@ CREATE FUNCTION [dbo].[fn_Capitalize]
 RETURNS NVARCHAR (255)
 AS
 BEGIN
-	SET @Palabra = REPLACE(LTRIM(RTRIM(@Palabra)),'  ',' ')
+	
+	WHILE CHARINDEX('  ',@Palabra)>0 --Esto es por si hay mas de un espacio entre las palabras
+		BEGIN 
+			SET @Palabra = REPLACE(LTRIM(RTRIM(@Palabra)),'  ',' ')
+		END
 	DECLARE @PalabraOriginal AS NVARCHAR(255) = @Palabra
 	DECLARE @Espacios AS INT = (LEN(@Palabra)-LEN(REPLACE(@Palabra,' ','')))+1
 
