@@ -15,10 +15,11 @@ DECLARE @CampoObtenido AS NVARCHAR(255)
 WHILE @Posicion>0
 	BEGIN
 
-		SET @CampoObtenido = SUBSTRING(@Texto,1,CASE WHEN CHARINDEX(@SeparadorControl,@Texto)=0 THEN LEN(REPLACE(@Texto,@SeparadorControl,'')) ELSE CHARINDEX(@SeparadorControl,@Texto) END)
+		SET @CampoObtenido = SUBSTRING(@Texto,1,CASE WHEN CHARINDEX(@SeparadorControl,@Texto)=0 THEN (LEN('['+REPLACE(@Texto,@SeparadorControl,'')+']')-2) ELSE CHARINDEX(@SeparadorControl,@Texto)-1 END)
 
-		SET @Texto = SUBSTRING(@Texto,LEN(@CampoObtenido)+LEN(@SeparadorControl),CASE WHEN LEN(@Texto)=0 THEN LEN(REPLACE(@Texto,@SeparadorControl,'')) ELSE LEN(@Texto) END)
+		SET @Texto = SUBSTRING(@Texto,(LEN('['+@CampoObtenido+']')-2)+(LEN('['+@SeparadorControl+']')-2)+1,CASE WHEN (LEN('['+@Texto+']')-2)=0 THEN (LEN('['+REPLACE(@Texto,@SeparadorControl,'')+']')-2) ELSE (LEN('['+@Texto+']')-2) END)
 
+		SELECT @CampoObtenido,@Texto
 		SET @Posicion = @Posicion-1
 	END
 
