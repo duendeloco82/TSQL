@@ -19,7 +19,6 @@ WHILE @Posicion>0
 
 		SET @Texto = SUBSTRING(@Texto,(LEN('['+@CampoObtenido+']')-2)+(LEN('['+@SeparadorControl+']')-2)+1,CASE WHEN (LEN('['+@Texto+']')-2)=0 THEN (LEN('['+REPLACE(@Texto,@SeparadorControl,'')+']')-2) ELSE (LEN('['+@Texto+']')-2) END)
 
-		SELECT @CampoObtenido,@Texto
 		SET @Posicion = @Posicion-1
 	END
 
